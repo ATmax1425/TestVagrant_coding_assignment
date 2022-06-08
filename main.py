@@ -12,30 +12,31 @@ IPL_DATA = {
 }
 
 
-# 3rd Task
-# Generalize the same solution, so that we could get teams that have n consecutive losses/wins.
+# 4th Task
+# Calculate the average points of these filtered teams
 
-# this time we need to get more data
-# 'data' will have IPL_DATA, if we need consecutive wins we can set 'wins' to True
-# and if we need consecutive losses we will set it False, 'n' will have number of consecutive times
-def find_consecutive(data: dict, wins: bool, n: int):
-    teams = []
+def find_consecutive_and_get_average_points(data: dict, wins: bool, n: int):
+    # empty 'points' list that will hold teams points
+    points = []
     for i, results in enumerate(data["Last_5"]):
         temp = 0
         for result in results:
-            # changed 0 to 'wins' now we can check for consecutive wins or losses
             if result == wins:
                 temp += 1
             else:
                 temp = 0
-            # changed 2 to 'n' for checking with different values
-            # everything else is same
+
             if temp == n:
-                teams.append(data["Team"][i])
+                # for getting average points of e filtered teams
+                # we are now appending Pts in points list
+                points.append(data["Pts"][i])
                 break
-    return teams
+    # and we will calculate average with ( sum of points / number of points )
+    average = sum(points) / len(points)
+    # finally return the average
+    return average
 
 
 # testing the code
-# 3re Task
-print(find_consecutive(data=IPL_DATA, wins=True, n=2))
+# 4th Task
+print(find_consecutive_and_get_average_points(data=IPL_DATA, wins=True, n=2))
